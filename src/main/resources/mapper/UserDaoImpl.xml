@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <!--查询用户分布图数据-->
+    <select id="selectUser" resultType="Month">
+        select count(*) as count,ADDRESS address
+        FROM t_user
+        group by address
+    </select>
+    <!--查询最近七天的-->
+    <select id="selectBySeven" resultType="Month">
+        select date_format(create_Date,'%Y-%m-%d') as month, count(*) as count
+        from t_user
+        where create_Date &gt;= date(now()) - interval 7 day group by day(create_Date);
+
+
+
+    </select>
+    <!--查询12个月的人数-->
+    <select id="selectMonth" resultType="Month">
+        select count(id) count,date_format(create_Date,'%Y-%m') as month
+        from t_user
+        group by date_format(create_Date,'%Y-%m')
+    </select>
+</mapper>

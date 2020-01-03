@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <!--添加-->
+    <insert id="insertAlbum">
+        insert into album values
+        (#{id},#{title},#{img},#{score},#{author}
+        ,#{broadcaster},#{count},#{brief},#{create_Date}
+        ,#{status},#{other})
+    </insert>
+    <!--修改-->
+    <update id="updateAlbum">
+        update album
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="img!=null">
+                img=#{img},
+            </if>
+            <if test="score!=null">
+                score=#{score},
+            </if>
+            <if test="author!=null">
+                author=#{author},
+            </if>
+            <if test="broadcaster!=null">
+                broadcaster=#{broadcaster},
+            </if>
+            <if test="count!=null">
+                count=#{count},
+            </if>
+            <if test="brief!=null">
+                brief=#{brief},
+            </if>
+            <if test="create_Date!=null">
+                create_Date=#{create_Date},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+            <if test="other!=null">
+                other=#{other}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <!--查询总条数-->
+    <select id="selectCountAlbum" resultType="Integer">
+        select count(*) from album
+    </select>
+    <!--查询全部-->
+    <select id="selectAlbum" resultType="Album">
+        select * from album
+    </select>
+    <!--分页查询-->
+    <select id="sybaseAlbum" resultType="Album">
+        select * from album limit #{start},#{rows}
+    </select>
+    <!--删除-->
+    <delete id="deleteAlbum">
+        delete from album
+        where ID IN
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <!--通过id查询-->
+    <select id="selectById" resultType="Album">
+        select * from album where ID=#{id}
+    </select>
+</mapper>
