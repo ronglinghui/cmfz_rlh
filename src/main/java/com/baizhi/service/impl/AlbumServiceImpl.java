@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.AlbumDao;
 import com.baizhi.entity.Album;
 import com.baizhi.service.AlbumService;
@@ -19,6 +21,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     //添加
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> insertAlbum(Album album) {
         //创建map集合
         Map<String, String> map = new HashMap<>();
@@ -44,6 +47,7 @@ public class AlbumServiceImpl implements AlbumService {
     //分页查询
     @Override
     //查询事物
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> sybaseAlbum(Integer page, Integer row) {
         //获取总条数
@@ -74,6 +78,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     //修改
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> updateAlbum(Album album) {
         System.out.println("service=====" + album.getId());
         //创建map集合
@@ -99,11 +104,13 @@ public class AlbumServiceImpl implements AlbumService {
 
     //删除
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public void deleteAlbum(String[] id) {
         albumDao.deleteAlbum(id);
     }
 
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Album selectById(String id) {
         return albumDao.selectById(id);

@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.ArticleDao;
 import com.baizhi.entity.Article;
 import com.baizhi.service.ArticleService;
@@ -19,6 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     //添加
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> insertArticle(Article article) {
         article.setId(UUID.randomUUID().toString());
         article.setCreate_Date(new Date());
@@ -29,6 +32,7 @@ public class ArticleServiceImpl implements ArticleService {
     //分页查询
     @Override
     //查询事物
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> sybaseArticle(Integer page, Integer row) {
         //获取总条数
@@ -59,6 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     //修改
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> updateArticle(Article article) {
         Map<String, String> map = new HashMap<>();
         articleDao.updateArticle(article);
@@ -68,12 +73,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     //删除
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public void deleteArticle(String[] id) {
         articleDao.deleteArticle(id);
     }
 
     //id查询
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Article selectById(String id) {
         return articleDao.selectById(id);

@@ -1,5 +1,6 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
 import com.baizhi.dao.AlbumDao;
 import com.baizhi.dao.ArticleDao;
 import com.baizhi.dao.BannerDao;
@@ -35,6 +36,7 @@ public class HomePageServiceImpl implements HomePageService {
 
     //首页数据
     @Transactional(propagation = Propagation.SUPPORTS)//查询的事物
+    @AddCache//自定义缓存注解  添加缓存
     public Map<String, List<Map<String, String>>> selectHomePage(HttpSession session, HttpServletRequest request, String type) throws UnknownHostException {
         //创建集合
         Map<String, List<Map<String, String>>> map = new HashMap<>();
@@ -107,6 +109,7 @@ public class HomePageServiceImpl implements HomePageService {
 
     //闻的详情
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> selectWenPage(HttpSession session, HttpServletRequest request) throws UnknownHostException {
         //获取协议  http

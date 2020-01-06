@@ -54,6 +54,8 @@ public class RedisCacheAop {
         //查询数据库
         System.out.println("添加缓存");
         Object proceed = proceedingJoinPoint.proceed();
+        //添加缓存
+        hashOperations.put(namespace, stringBuilder, proceed);
         //返回数据
         return proceed;
     }

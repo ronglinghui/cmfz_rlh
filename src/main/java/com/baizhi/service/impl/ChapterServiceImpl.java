@@ -1,5 +1,7 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.AlbumDao;
 import com.baizhi.dao.ChapterDao;
 import com.baizhi.entity.Album;
@@ -26,6 +28,7 @@ public class ChapterServiceImpl implements ChapterService {
 
     //添加
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> insertChapter(Chapter chapter) {
         //创建map集合
         Map<String, String> map = new HashMap<>();
@@ -54,6 +57,7 @@ public class ChapterServiceImpl implements ChapterService {
 
     //分页查询
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     //查询事物
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> sybaseChapter(Integer page, Integer row, String id) {
@@ -85,6 +89,7 @@ public class ChapterServiceImpl implements ChapterService {
 
     //修改
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> updateChapter(Chapter chapter) {
         System.out.println("service=====" + chapter.getId());
         System.out.println("charpter===='" + chapter);
@@ -116,6 +121,7 @@ public class ChapterServiceImpl implements ChapterService {
 
     //删除
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public void deleteChapter(String[] id, String aid) {
 
         //这里计算专辑的集数

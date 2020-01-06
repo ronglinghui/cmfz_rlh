@@ -4,6 +4,8 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.ClearCache;
 import com.baizhi.dao.BannerDao;
 import com.baizhi.entity.Banner;
 import com.baizhi.service.BannerService;
@@ -28,6 +30,7 @@ public class BannerServiceImpl implements BannerService {
 
     //添加
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> insertBanner(Banner banner) {
         //创建map集合
         Map<String, String> map = new HashMap<>();
@@ -52,6 +55,7 @@ public class BannerServiceImpl implements BannerService {
     //分页查询
     @Override
     //查询事物
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> sybaseBanner(Integer page, Integer row) {
         //获取总条数
@@ -82,6 +86,7 @@ public class BannerServiceImpl implements BannerService {
 
     //修改
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public Map<String, String> updateBanner(Banner banner) {
         System.out.println("service=====" + banner.getId());
         //创建map集合
@@ -107,12 +112,14 @@ public class BannerServiceImpl implements BannerService {
 
     //删除
     @Override
+    @ClearCache//自定义缓存注解  删除缓存
     public void deleteBanner(String[] id) {
         bannerDao.deleteBanner(id);
     }
 
     //查询全部   用于导出数据
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public void easyPoiOutBanner(HttpServletResponse response, HttpSession session) {
         //获取数据库的数据
@@ -142,6 +149,8 @@ public class BannerServiceImpl implements BannerService {
         }
     }
 
+    //添加excle数据
+    @ClearCache//自定义缓存注解  删除缓存
     public void inExcle(MultipartFile file, HttpSession session) {
         //导入的参数   用于设置
         ImportParams params = new ImportParams();

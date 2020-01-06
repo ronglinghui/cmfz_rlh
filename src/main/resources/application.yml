@@ -25,7 +25,10 @@ spring:
     multipart:
       max-file-size: 1GB
       max-request-size: 10GB
-
+  redis:
+    port: 7000
+    host: 192.168.66.102
+    database: 0
 
 #sqlsessionfactory======================================================================
 mybatis:

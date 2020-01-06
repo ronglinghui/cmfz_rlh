@@ -1,5 +1,6 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.annotation.AddCache;
 import com.baizhi.dao.UserDao;
 import com.baizhi.entity.Month;
 import com.baizhi.service.UserService;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
     //最近七天
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
+    @AddCache//自定义缓存注解  添加缓存
     public Map<Integer, List<Object>> selectBySeven() {
         Map<Integer, List<Object>> map = new HashMap<>();
         List<Month> months = userDao.selectBySeven();
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService {
 
     //最近12个月
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<Integer, List<Object>> selectMonth() {
         Map<Integer, List<Object>> map = new HashMap<>();
@@ -65,6 +68,7 @@ public class UserServiceImpl implements UserService {
 
     //总数
     @Override
+    @AddCache//自定义缓存注解  添加缓存
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Map<String, Object>> selectUser() {
         //调用方法
